@@ -14,6 +14,7 @@ const App = () => (
     <Container className="App">
       <Header />
       <Categories />
+      <Products />
       <Footer />
     </Container>
   </Provider>

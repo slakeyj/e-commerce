@@ -2,21 +2,9 @@ import React from 'react'
 import { Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { selectActiveCategory } from '../../actions/categoryActions'
-import { If } from '../If/If'
 import './Categories.scss'
 
-/*
-{
-  categories: {
-    activeCategory: '',
-    categories: [
-      { normalizedName: 'crochet', displayName: 'Crochet', description: 'crochet stuff' },
-      { normalizedName: 'knitting', displayName: 'Knitting', description: 'knitting stuff' },
-      { normalizedName: 'embroidery', displayName: 'Embroidery', description: 'embroidery stuff' }
-    ]
-  }
-}
-*/
+
 
 const mapStateToProps = state => {
   return {
@@ -27,13 +15,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = { selectActiveCategory };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     selectActiveCategory: name => {
-//       dispatch(selectActiveCategory(name))
-//     }
-//   }
-// }
 
 const Categories = props => {
   return (
@@ -44,13 +25,8 @@ const Categories = props => {
         // category.normalizedName === props.activeCategory
 
         return (
-          <Nav.Item onClick={() => { props.selectActiveCategory(category.normalizedName) }}>
-            <If condition={category.normalizedName === props.activeCategory}>
-              <Nav.Link className="active-category">{category.displayName}</Nav.Link>
-            </If>
-            <If condition={category.normalizedName !== props.activeCategory}>
-              <Nav.Link className="inactive-category">{category.displayName}</Nav.Link>
-            </If>
+          <Nav.Item onClick={() => { props.selectActiveCategory(props.activeCategory === category.normalizedName ? '' : category.normalizedName) }}>
+            <Nav.Link className={category.normalizedName === props.activeCategory ? 'active-category' : 'inactive-category'}>{category.displayName}</Nav.Link>
           </Nav.Item>
         );
       })}
