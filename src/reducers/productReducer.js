@@ -1,20 +1,8 @@
-// State should be a list of all products
-
-// Create an action that will trigger the reducer to filter the product list when the active category is changed
-// HINT: Different reducers can respond to the same actions
-// Create a reducer that will filter the products list based on the active category
-
-
-
-// 1. reducer initial state and states returned by reducer must have the same structure
-// 2. need to track in state ALL products regardless of whether they are shown currently
-// 3. need some way to flag certain products as currently displayed
-
 
 const initialState = [
-  { categoryAssociation: 'crochet', name: 'wool blanket', description: 'granny squares', price: '$80', inventory_count: '3' },
-  { categoryAssociation: 'knitting', name: 'scarf', description: 'red and white stripes', price: '$50', inventory_count: '2' },
-  { categoryAssociation: 'embroidery', name: 'portrait', description: '10 x 10', price: '$40', inventory_count: '1' },
+  { categoryAssociation: 'crochet', name: 'Flowers in the Snow', description: 'granny square blanket', price: '$80', inventory_count: '5', image: 'flowers.jpg' },
+  { categoryAssociation: 'knitting', name: 'Scarf', description: 'beige circle scarf', price: '$50', inventory_count: '8', image: 'scarf.jpg' },
+  { categoryAssociation: 'embroidery', name: 'Monstera', description: '10 x 10 image of monstera leaf', price: '$40', inventory_count: '4', image: 'monstera.jpg' },
 ]
 
 const productReducer = (state = initialState, action) => {
@@ -23,6 +11,12 @@ const productReducer = (state = initialState, action) => {
       if (action.payload === '') return initialState;
       const products = initialState.filter(product => product.categoryAssociation === action.payload);
       return products;
+    case 'REDUCE_STOCK_NUMBER':
+      return state.map(product =>
+        product.name === action.payload
+          ? { ...product, inventory_count: product.inventory_count - 1 } : product
+      );
+
     default:
       return state;
   }

@@ -7,7 +7,9 @@ import Footer from '../Footer/Footer'
 import store from '../../store'
 import Categories from '../../components/Categories/Categories'
 import Products from '../../components/Products/Products'
+import Cart from '../../components/Cart/Cart'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const App = () => (
   <Provider store={store}>
@@ -15,6 +17,7 @@ const App = () => (
       <Header />
       <Categories />
       <Products />
+      <Cart />
       <Footer />
     </Container>
   </Provider>
