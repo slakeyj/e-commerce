@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "normalizedName": "crochet",
+      "displayName": "Crochet",
+      "description": "crochet stuff"
+    },
+    {
+      "normalizedName": "knitting",
+      "displayName": "Knitting",
+      "description": "knitting stuff"
+    },
+    {
+      "normalizedName": "embroidery",
+      "displayName": "Embroidery",
+      "description": "embroidery stuff"
+    }
+  ],
+  "products": [
+    {
+      "categoryAssociation": "crochet",
+      "name": "Flowers in the Snow",
+      "description": "granny square blanket",
+      "price": "$80",
+      "inventory_count": "5",
+      "image": "flowers.jpg"
+    },
+    {
+      "categoryAssociation": "knitting",
+      "name": "Scarf",
+      "description": "beige circle scarf",
+      "price": "$50",
+      "inventory_count": 8,
+      "image": "scarf.jpg"
+    },
+    {
+      "categoryAssociation": "embroidery",
+      "name": "Monstera",
+      "description": "10 x 10 image of monstera leaf",
+      "price": "$40",
+      "inventory_count": 4,
+      "image": "monstera.jpg"
+    }
+  ]
+}
