@@ -1,15 +1,13 @@
 
-const initialState = [
-  { categoryAssociation: 'crochet', name: 'Flowers in the Snow', description: 'granny square blanket', price: '$80', inventory_count: '5', image: 'flowers.jpg' },
-  { categoryAssociation: 'knitting', name: 'Scarf', description: 'beige circle scarf', price: '$50', inventory_count: '8', image: 'scarf.jpg' },
-  { categoryAssociation: 'embroidery', name: 'Monstera', description: '10 x 10 image of monstera leaf', price: '$40', inventory_count: '4', image: 'monstera.jpg' },
-]
+const initialState = [];
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'FETCH_ALL_PRODUCTS':
+      return action.payload;
     case 'SELECT_ACTIVE_CATEGORY':
-      if (action.payload === '') return initialState;
-      const products = initialState.filter(product => product.categoryAssociation === action.payload);
+      if (action.payload === '') return state;
+      const products = state.filter(product => product.categoryAssociation === action.payload);
       return products;
     case 'REDUCE_STOCK_NUMBER':
       return state.map(product =>

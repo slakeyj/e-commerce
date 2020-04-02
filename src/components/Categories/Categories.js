@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { selectActiveCategory } from '../../actions/categoryActions'
+import { selectActiveCategory, fetchAllCategories } from '../../actions/categoryActions'
 import './Categories.scss'
 
 
@@ -13,20 +13,24 @@ const mapStateToProps = state => {
   };
 }
 
-const mapDispatchToProps = { selectActiveCategory };
+const mapDispatchToProps = { selectActiveCategory, fetchAllCategories };
 
 
-const Categories = props => {
+const Categories = ({ categories, activeCategory, selectActiveCategory, fetchAllCategories }) => {
+
+  const fetchData = () => {
+    fetchAllCategories();
+  };
+  useEffect(() => fetchData(), []); //eslint-disable-line
   return (
     <Nav
       className="justify-content-center"
     >
-      {props.categories.map(category => {
-        // category.normalizedName === props.activeCategory
+      {categories.map(category => {
 
         return (
-          <Nav.Item onClick={() => { props.selectActiveCategory(props.activeCategory === category.normalizedName ? '' : category.normalizedName) }}>
-            <Nav.Link className={category.normalizedName === props.activeCategory ? 'active-category' : 'inactive-category'}>{category.displayName}</Nav.Link>
+          <Nav.Item onClick={() => { selectActiveCategory(activeCategory === category.normalizedName ? '' : category.normalizedName) }}>
+            <Nav.Link className={category.normalizedName === activeCategory ? 'active-category' : 'inactive-category'}>{category.displayName}</Nav.Link>
           </Nav.Item>
         );
       })}

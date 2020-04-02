@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import './Products.scss'
-import { reduceStockNumber } from '../../actions/productActions'
+import { reduceStockNumber, fetchAllProducts } from '../../actions/productActions'
 
 const mapStateToProps = state => {
   return {
     products: state.products,
-    cartContents: state.cartContents
   }
 }
 
-const mapDispatchToProps = { reduceStockNumber };
+const mapDispatchToProps = { reduceStockNumber, fetchAllProducts };
 
-const Products = props => {
+const Products = ({ products, reduceStockNumber, fetchAllProducts }) => {
+
+  const fetchData = () => {
+    fetchAllProducts();
+  }
+  // eslint-disable-next-line
+  useEffect(() => fetchData(), [])
   return (
     <>
       <Table>
@@ -29,16 +34,16 @@ const Products = props => {
 
         </thead>
         <tbody>
-          {props.products.map(product => {
+          {products.map(product => {
             return (
-              <tr className="product-row" key={product.name}>
+              <tr className="product-row" key={product.id}>
                 <div></div>
                 <img src={require(`./${product.image}`)} alt="product" />
                 <td>{product.name}</td>
                 <td>{product.description}</td>
                 <td>{product.price}</td>
                 <td>{product.inventory_count}</td>
-                <td><Button onClick={() => { props.reduceStockNumber(product.name) }}
+                <td><Button onClick={() => { reduceStockNumber(product.name) }}
                   variant="outline-dark" className={product.inventory_count > 0 ? 'display' : 'hide'}>Add To Cart</Button></td>
               </tr>
 

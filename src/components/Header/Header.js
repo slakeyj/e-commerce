@@ -16,8 +16,8 @@ const Header = props => {
     <>
       <header>
         <div className="header">
-          <h1>Welcome to the Craft Shop</h1>
-          <Button classname="cart-button" variant="outline-dark">Cart {props.cartCount}</Button>
+          <h1>The Craft Shop</h1>
+          <Button className="cart-button" variant="outline-dark">Cart {props.cartCount}</Button>
         </div>
       </header>
     </>
