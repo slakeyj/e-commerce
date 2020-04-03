@@ -6,7 +6,7 @@ import { reduceStockNumber, fetchAllProducts } from '../../actions/productAction
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
+    products: state.products.filteredResults,
   }
 }
 

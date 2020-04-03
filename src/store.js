@@ -5,15 +5,15 @@ import categoryReducer from './reducers/categoryReducer'
 import productReducer from './reducers/productReducer';
 import cartCountReducer from './reducers/cartCountReducer'
 import cartContentsReducer from './reducers/cartContentsReducer'
+import authReducer from './reducers/authReducer'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
   categories: categoryReducer,
   products: productReducer,
   cartCount: cartCountReducer,
-  cartContents: cartContentsReducer
+  cartContents: cartContentsReducer,
+  auth: authReducer
 });
-
-
 
 export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
