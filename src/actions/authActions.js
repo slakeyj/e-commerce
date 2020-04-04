@@ -15,16 +15,30 @@ export const userLogIn = (username, password) => {
         Authorization: `Basic ${btoa(`${username}:${password}`)}`
       }
     })
+
     const response = await raw.json();
-    // Add verify token here
+    console.log('response', response)
     const user = verifyToken(response.token);
-    dispatch(userLogInAction(user))
+    dispatch(userLogInAction(user, response.token))
   }
 }
 
-const userLogInAction = (user) => {
-  return {
-    type: 'USER_LOG_IN',
-    payload: user
+
+
+export const jwtLogin = token => {
+  return async dispatch => {
+    const user = verifyToken(token);
+    if (user) {
+      dispatch(userLogInAction(user, token));
+    }
   }
 }
+
+const userLogInAction = (user, token) => {
+  return {
+    type: 'USER_LOG_IN',
+    user,
+    token
+  }
+}
+

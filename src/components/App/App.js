@@ -19,12 +19,14 @@ const App = () => (
     <Container className="App">
       <Header />
       <Login />
-      {/* <Auth> */}
-      <Categories />
-      <AddProduct />
-      <Products />
-      <Cart />
-      {/* </Auth> */}
+      <Auth>
+        <Categories />
+        <Auth permission="create">
+          <AddProduct />
+        </Auth>
+        <Products />
+        <Cart />
+      </Auth>
       <Footer />
     </Container>
   </Provider>

@@ -5,7 +5,8 @@ const verifyToken = token => {
     const user = jwt.verify(token, 'fine, keep your secrets');
     return user;
   } catch (e) {
-    console.error('Invalid Token', e)
+    console.error('Invalid Token', e);
+    throw e;
   }
 }
 

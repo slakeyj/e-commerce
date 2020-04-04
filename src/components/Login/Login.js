@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
-import { userLogIn, userLogOut } from '../../actions/authActions';
+import { userLogIn, userLogOut, jwtLogin } from '../../actions/authActions';
+import { useCookie, useMount } from 'react-use'
 
 const mapStateToProps = state => {
   return {
@@ -10,16 +11,39 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = { userLogIn, userLogOut }
+const mapDispatchToProps = { userLogIn, userLogOut, jwtLogin }
 
 
-const Login = ({ auth, userLogIn, userLogOut }) => {
+const Login = ({ auth, userLogIn, userLogOut, jwtLogin }) => {
+  // signature: const [value, updateCookie, deleteCookie] = useCookie("my-cookie");
+  const [authCookie, updateAuthCookie] = useCookie('auth');
+
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = data => {
-    userLogIn(data.username, data.password);
-    reset();
+
+
+  const onSubmit = async data => {
+    try {
+      await userLogIn(data.username, data.password);
+      reset();
+    } catch (e) {
+      // dispatch an action to the redux store to indicate login failure
+    }
   }
+
+  // calls after component mount, if there is an authCookie, login
+  useMount(() => {
+    if (authCookie) {
+      jwtLogin(authCookie)
+    }
+  })
+
+  useEffect(() => {
+    // if token doesn't match, update it
+    if (authCookie !== auth.token) {
+      updateAuthCookie(auth.token);
+    }
+  }, [auth.token, authCookie, updateAuthCookie])
 
   const LogInForm = (
     <Form onSubmit={handleSubmit(onSubmit)}>
